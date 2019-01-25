@@ -1,0 +1,40 @@
+def genStatic(a,c,count=50):
+    y = []
+    for i in range(count):
+        y.append(a*i + c)
+    return y
+
+def genStatic2(vec,c,count=50):
+    # y = vec * x+b
+    # vec: number or vector
+    # x: 0 —> count
+    y = []
+    for i in range(count):
+        s = 0
+        for k in range(len(vec)):
+            s += i * vec[k]
+        y.append(s+c)
+    return y
+
+# h(x) = t0*x + t1
+# J(t0,t1) = (1/2m) * (sum(h(x)-y)^2)
+def costFunc(x,y):
+    m = len(y)
+    sum_x = sum(x)
+    sum_y = sum(y)
+    sum_x2 = 0
+    sum_xy = 0
+    for i in range(m):
+        sum_x2 += i*i
+        sum_xy += i*y[i]
+
+    t0 = (m*sum_xy-sum_x*sum_y)/(m*sum_x2-sum_x*sum_x)
+    t1 = (sum_y-sum_x*t0)/m
+    return [t0,t1]
+
+if __name__=="__main__":
+    y1 = genStatic(2,3,3)
+    x1 = genStatic(1,0,3)
+    print(x1,y1)
+    print(costFunc(x1,y1))
+
