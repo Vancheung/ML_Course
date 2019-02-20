@@ -1,0 +1,31 @@
+1、warmUpExercise.m,
+A = eye(5);
+
+2、plotData.m 
+plot(x, y, 'rx', 'MarkerSize', 10); % Plot the data
+ylabel('Profit in $10,000s'); % Set the y-axis label
+xlabel('Population of City in 10,000s'); % Set the x-axis label
+
+3、computeCost.m
+J  = sum(power(X*theta-y,2))/2*m
+
+4、gradientDescent.m
+theta0 = theta(1,1) - alpha/m * sum((X*theta-y) .* X(:,1));
+theta1 = theta(2,1) - alpha/m * sum((X*theta-y) .* X(:,2));
+theta(1,1) = theta0;
+theta(2,1) = theta1;
+
+
+5、featureNormalize.m
+for i=1:size(X,2)
+    mu(i)=mean(X(:,i));  % avg(x):第i列平均数
+    sigma(i)=std(X(:,i));  % max(x) - min(x) : 第i 列标准差
+end
+X_norm=(X_norm - mu) ./ sigma;
+
+6、learning rate：
+
+7、normalEqn.m
+
+
+theta=pinv(X'*X)*X'*y;
