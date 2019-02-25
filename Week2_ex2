@@ -1,0 +1,39 @@
+1、plotData.m
+
+xlabel("Exam 1 score");
+ylabel("Exam 2 score");
+
+for i=1:size(X,1)
+    if y(i) == 0
+      plot(X(i,1), X(i,2), 'ko','MarkerFaceColor', 'y','MarkerSize', 7,'LineWidth', 2);
+    
+    else
+      plot(X(i,1), X(i,2), 'k+','MarkerSize', 7,'LineWidth', 2);
+    end
+end
+
+
+2、sigmod.m
+
+for i=1:size(z)
+    g(i) = 1/(1+exp(-z(i,1)))
+end
+
+3、costFunction.m
+
+h = sigmoid(X * theta);
+j = zeros(m,1);
+for i=1:m
+  j(i) = -y(i,1)*log(h(i,1)) - (1-y(i,1))*log(1-h(i,1));
+end
+J = sum(j) / m;
+
+grad = X' * (h-y) ./ m
+
+4、predict.m
+for i=1:m
+  if sigmoid(X(i,:) * theta) >=0.5
+    p(i) = 1
+  end
+    
+end
