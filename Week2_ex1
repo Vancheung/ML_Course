@@ -7,7 +7,7 @@ ylabel('Profit in $10,000s'); % Set the y-axis label
 xlabel('Population of City in 10,000s'); % Set the x-axis label
 
 3、computeCost.m
-J  = sum(power(X*theta-y,2))/2*m
+J  = sum(power(X*theta-y,2))/(2*m)
 
 4、gradientDescent.m
 theta0 = theta(1,1) - alpha/m * sum((X*theta-y) .* X(:,1));
