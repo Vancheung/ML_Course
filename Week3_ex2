@@ -37,3 +37,19 @@ for i=1:m
   end
     
 end
+
+
+5、costFunctionReg.m
+
+h = sigmoid(X * theta);
+j = zeros(m,1);
+for i=1:m
+  j(i) = -y(i,1)*log(h(i,1)) - (1-y(i,1))*log(1-h(i,1));
+end
+J = sum(j) / m + lambda / (2*m) * sum(power(theta,2))
+
+% grad = X' * (h-y) ./ m
+for j=1:size(theta)
+  grad(j) = sum((h-y).*X(:,j))/m + lambda * grad(j) / m
+
+end
