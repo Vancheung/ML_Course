@@ -15,9 +15,7 @@ end
 
 2、sigmod.m
 
-for i=1:size(z)
-    g(i) = 1/(1+exp(-z(i,1)))
-end
+g = 1./(ones(size(z)) + exp(-z));
 
 3、costFunction.m
 
@@ -41,15 +39,6 @@ end
 
 5、costFunctionReg.m
 
-h = sigmoid(X * theta);
-j = zeros(m,1);
-for i=1:m
-  j(i) = -y(i,1)*log(h(i,1)) - (1-y(i,1))*log(1-h(i,1));
-end
-J = sum(j) / m + lambda / (2*m) * sum(power(theta,2))
+J = ( log( sigmoid(theta'*X') ) * y + log( 1-sigmoid(theta'*X') ) * (1 - y) )/(-m) + (lambda / (2*m)) * ( ( theta( 2:length(theta) ) )' * theta(2:length(theta)) );
 
-% grad = X' * (h-y) ./ m
-for j=1:size(theta)
-  grad(j) = sum((h-y).*X(:,j))/m + lambda * grad(j) / m
-
-end
+grad = ( X' * ( sigmoid(X*theta)-y ) )/m + ( lambda / m ) * ( [0; ones( length(theta) - 1 , 1 )].*theta );
