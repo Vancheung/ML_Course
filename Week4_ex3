@@ -1,0 +1,21 @@
+Ex3
+1、lrCostFunction.m
+
+h = sigmoid(X * theta)
+temp = theta; 
+temp(1) = 0;
+J = ( -y' * log(h) - (1-y)'* log(1-h))/m + (temp' * lambda * temp ) /(2*m);
+grad = (X' * (h-y))/m + lambda * temp / m; 
+
+2/
+initial_theta = zeros(n + 1, 1);
+options = optimset('GradObj', 'on', 'MaxIter', 50);
+
+for c = 1:num_labels
+  [all_theta(:,c)] = ...
+         fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
+                 initial_theta, options);
+end
+
+
+all_theta = all_theta';
