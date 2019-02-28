@@ -7,15 +7,28 @@ temp(1) = 0;
 J = ( -y' * log(h) - (1-y)'* log(1-h))/m + (temp' * lambda * temp ) /(2*m);
 grad = (X' * (h-y))/m + lambda * temp / m; 
 
-2/
+2、oneVsAll.m
 initial_theta = zeros(n + 1, 1);
 options = optimset('GradObj', 'on', 'MaxIter', 50);
 
 for c = 1:num_labels
-  [all_theta(:,c)] = ...
+  [all_theta(c,:)] = ...
          fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
                  initial_theta, options);
-end
+End
 
+3、predictOneVsAll.m
+h = sigmoid(X * all_theta');
 
-all_theta = all_theta';
+[value p] = max(h, [], 2);  % [最大值 最大值所在行号]
+
+4、predict.m
+X = [ones(m,1) X];
+
+z2 = Theta1*X';
+a2 = (sigmoid(z2))';  %5000*25
+a2 = [ones(m,1) a2];  %5000*26
+z3 = Theta2*a2';  %10*5000
+h = (sigmoid(z3))';  %5000*10
+
+[value p] = max(h, [], 2);
