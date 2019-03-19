@@ -1,0 +1,48 @@
+Ex5
+1、linearRegCostFunction.m
+theta1 = theta;
+theta1(1) = 0;
+h =  X*theta;
+J = ((h-y)'*(h-y) + (lambda * theta1' * theta1 ))/(2*m);
+
+%grad(0) = (X(:,1))'*(h-y)/m;
+%grad(1) = (X(:,2)'*(h-y) + (lambda*theta(2)))/m;
+
+
+grad = (X'*(h-y)+lambda*theta1)/m;
+
+2、learningCurve.m
+%X = [ones(m, 1) X];  12*2
+%Xval = [ones(size(Xval, 1), 1) Xval];    21*2
+%X_train = X(1:i,:);  i*2
+%y_train = y(1:i); i*1
+%theta : 2*1
+%h_train = X_train * theta;  i*1
+%h_val = X_val*theta;  21*1
+%error_train = (h_train-y)^2/(2*i)
+%error_val = (h_val-yval)^2/(2*length(yval))
+
+for i = 1:m
+  [theta] = trainLinearReg(X(1:i, :), y(1:i), lambda);
+  h_train = X(1:i,:) * theta; %i*1
+  h_val = Xval*theta; %21*1
+  error_train(i)= (h_train-y(1:i))'*(h_train-y(1:i))/(2*i);
+  error_val(i) = (h_val-yval)'*(h_val-yval)/(2*length(yval));
+  
+end
+
+3、polyFeatures.m
+for i=1:p
+  X_poly(:,i) = X.^i;
+end
+
+4、validationCurve.m
+for i = 1:length(lambda_vec)
+  [theta] = trainLinearReg(X, y, lambda_vec(i));
+  h_train = X * theta; 
+  h_val = Xval*theta; 
+  error_train(i)= (h_train-y)'*(h_train-y)/(2*length(y));
+  error_val(i) = (h_val-yval)'*(h_val-yval)/(2*length(yval));
+  
+
+end
