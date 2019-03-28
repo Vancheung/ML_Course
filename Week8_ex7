@@ -1,0 +1,34 @@
+Ex7
+1、findClosestCentroids
+for i=1:length(X)
+  C = zeros(K,1);
+  for j=1:K
+    %c(i)
+    C(j,1) = (X(i,:)-centroids(j,:))*(X(i,:)-centroids(j,:))';
+  end
+  [dis idx(i)] = min(C);
+end
+
+2、computeCentroids
+C = zeros(K,1);
+sum_x = zeros(K,n);
+for i=1:m
+  C(idx(i))+=1;
+  sum_x(idx(i),:) += X(i,:);
+end
+
+for j=1:K
+  centroids(j,:)= sum_x(j,:)/ C(j,:);
+End
+
+3、pca
+Sigma = (X'*X)./m;
+[U, S, V] = svd(Sigma);
+
+4、projectData
+U_reduce = U(:,1:K);
+Z = X*U_reduce;
+
+5、recoverData
+U_reduce = U(:,1:K);
+X_rec = Z*U_reduce';
